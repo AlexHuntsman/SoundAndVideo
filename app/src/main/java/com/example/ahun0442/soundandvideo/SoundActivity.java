@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.widget.*;
+import android.graphics.Color;
 
 public class SoundActivity extends Activity implements Runnable
 {
@@ -18,6 +19,7 @@ public class SoundActivity extends Activity implements Runnable
     private MediaPlayer soundPlayer;
     private SeekBar soundSeekBar;
     private Thread soundThread;
+    private RelativeLayout background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,11 +33,25 @@ public class SoundActivity extends Activity implements Runnable
         videoButton = (Button) findViewById(R.id.videoButton);
         soundSeekBar = (SeekBar) findViewById(R.id.soundSeekBar);
         soundPlayer = MediaPlayer.create(this.getBaseContext(), R.raw.buahhhhhhhhhn);
+        background = (RelativeLayout) findViewById(R.id.background);
 
         setupListeners();
 
         soundThread = new Thread(this);
         soundThread.start();
+    }
+
+    private void changeBackgroundColor()
+    {
+        int redColor;
+        int greenColor;
+        int blueColor;
+
+        redColor = (int) (Math.random() * 256);
+        greenColor = (int) (Math.random() * 256);
+        blueColor = (int) (Math.random() * 256);
+
+        background.setBackgroundColor(Color.rgb(redColor, greenColor, blueColor));
     }
     private void setupListeners()
     {
@@ -71,16 +87,23 @@ public class SoundActivity extends Activity implements Runnable
             }
         });
 
-        soundSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onStopTrackingTouch(SeekBar seekBar) {
+        soundSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
             }
 
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
             }
 
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                if (fromUser)
+                {
                     soundPlayer.seekTo(progress);
+                    changeBackgroundColor();
+
                 }
             }
         });

@@ -1,9 +1,6 @@
 package com.example.ahun0442.soundandvideo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
@@ -26,7 +23,7 @@ public class VideoActivity extends Activity
         myPlayer = (VideoView) findViewById(R.id.videoView);
         returnButton = (Button) findViewById(R.id.homeButton);
 
-        videoLocation = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.explosion);
+        videoLocation = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.minion);
         myVideoController = new MediaController(this);
         //prepare the Video
         setupMedia();
